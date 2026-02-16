@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
     const screens = document.querySelectorAll("#changing_content .single-screen");
+    if (screens.length !== 3) return;
     let current = 0;
-
-    screens.forEach((screen, index) => {
-        screen.style.display = index === 0 ? "block" : "none";
-    });
-
-    setInterval(() => {
+    const interval = setInterval(() => {
         screens[current].style.display = "none";
-        current = (current + 1) % screens.length;
+        current++;
         screens[current].style.display = "block";
+
+        if (current === 2) {
+            clearInterval(interval);
+            return;
+        }
     }, 5000);
 });
